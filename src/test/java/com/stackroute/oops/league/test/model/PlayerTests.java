@@ -38,7 +38,6 @@ public class PlayerTests {
         player.setTeamTitle("Hiphop");
         expected = "Player{playerId=001, playerName=Karthik, yearExpr=12, teamTitle=Hiphop}";
         assertEquals(player.toString().toLowerCase(), expected.toLowerCase(), MESSAGE_TWO);
-
     }
 
     @Test
@@ -51,3 +50,4 @@ public class PlayerTests {
         assertEquals(null,player.getTeamTitle(), MESSAGE_THREE);
     }
 }
+

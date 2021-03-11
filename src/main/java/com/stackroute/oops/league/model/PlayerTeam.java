@@ -7,17 +7,29 @@ import java.io.Serializable;
  * This is a subclass of Serializable and Comparable interface
  */
 public class PlayerTeam implements Serializable, Comparable {
+    private String playerId;
+    private String teamTitle;
+    // private String season;
+    // private int experience;
+
 
     //Parameterized Constructor to initialize all properties
     public PlayerTeam(String playerId, String teamTitle) {
+        this.playerId = playerId;
+        this.teamTitle = teamTitle;
+        // this.season = season;
+        // this.experience = experience;
     }
 
+   public PlayerTeam(){
+       
+   }
     public String getPlayerId() {
-        return null;
+        return this.playerId;
     }
 
     public String getTeamTitle() {
-        return null;
+        return this.teamTitle;
     }
 
     /**
@@ -26,12 +38,26 @@ public class PlayerTeam implements Serializable, Comparable {
      */
     @Override
     public String toString() {
-        return null;
+        return "Player{playerId="+playerId+", teamTitle="+teamTitle+"}";
     }
 
     //Overridden compare method based on playerId
     @Override
     public int compareTo(Object object) {
-        return 0;
+        PlayerTeam p = (PlayerTeam) object;
+        if(this.playerId.compareToIgnoreCase(p.playerId)>0){
+            return 1;
+        }else if(this.playerId.compareToIgnoreCase(p.playerId)==0){
+            return 0;
+        }else 
+        return -1;
+    }
+
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
+    }
+
+    public void setTeamTitle(String teamTitle) {
+        this.teamTitle = teamTitle;
     }
 }

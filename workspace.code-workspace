@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"name": "challenge-38-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-38-boilerplate"
+		},
+		{
+			"name": "challenge-37-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-37-boilerplate"
+		},
+		{
+			"name": "challenge-40-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-40-boilerplate"
+		},
+		{
+			"name": "challenge-39-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-39-boilerplate"
+		},
+		{
+			"name": "challenge-35-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-35-boilerplate"
+		},
+		{
+			"name": "challenge-33-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-33-boilerplate"
+		},
+		{
+			"name": "challenge-36-boilerplate",
+			"path": "..\\..\\Week 3_ds\\challenge-36-boilerplate"
+		},
+		{
+			"path": "..\\..\\Week 3_ds\\challenge-42-boilerplate"
+		},
+		{
+			"path": "..\\..\\Week 3_ds\\challenge-43-boilerplate"
+		}
+	],
+	"settings": {
+		"maven.view": "flat"
+	},
+	"extensions": {
+		"recommendations": [
+			"vscjava.vscode-maven"
+		]
+	}
+}
