@@ -50,8 +50,14 @@ public class PlayerTeamDaoImpl implements PlayerTeamDao {
      */
     @Override
     public Set<PlayerTeam> getPlayerSetByTeamTitle(String teamTitle) {
-        return null;
-
+        Set<PlayerTeam> tempPlayer = new TreeSet<PlayerTeam>();
+        Set<PlayerTeam> resPlayer = new TreeSet<PlayerTeam>();
+        for(PlayerTeam p: tempPlayer){
+            if(p.getTeamTitle().equals(teamTitle)){
+                resPlayer.add(p);
+            }
+        }
+        return resPlayer;
     }
 
     // Add the given PlayerTeam Object to finalteam.csv file

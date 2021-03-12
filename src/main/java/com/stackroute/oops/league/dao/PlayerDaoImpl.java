@@ -30,8 +30,8 @@ public class PlayerDaoImpl implements PlayerDao {
     static FileInputStream fi;
     static ObjectInputStream oi;
 
-    FileReader fr,fr5;
-    BufferedReader br,br5;
+    FileReader fr,fread;
+    BufferedReader br,bread;
     FileWriter fw;
     BufferedWriter bw;
 
@@ -39,8 +39,7 @@ public class PlayerDaoImpl implements PlayerDao {
      * Constructor to initialize an empty ArrayList for playerList
      */
     public PlayerDaoImpl() {
-        playerList = new ArrayList<>();
-
+        playerList = new ArrayList<Player>();
     }
 
     /**
@@ -98,13 +97,11 @@ public class PlayerDaoImpl implements PlayerDao {
         Player[] tempPlayer = new Player[500];
         String[] stringSplit = null;
         String line5;
-        
-
         try {
-            fr5 = new FileReader(PLAYER_FILE_NAME);
-            br5 = new BufferedReader(fr);
+            fread = new FileReader(PLAYER_FILE_NAME);
+            bread = new BufferedReader(fread);
             int i = 0;
-            while ((line5 = br5.readLine()) != null) {
+            while ((line5 = bread.readLine()) != null) {
                 // line = br.readLine();
                 stringSplit = line5.split(",");
                 tempPlayer[i] = new Player();
@@ -114,8 +111,8 @@ public class PlayerDaoImpl implements PlayerDao {
                 playerList.add(tempPlayer[i]);
                 i++;
             }
-            br.close();
-            fr.close();
+            bread.close();
+            fread.close();
             return playerList;
 
         } catch (IOException e) {
@@ -131,44 +128,11 @@ public class PlayerDaoImpl implements PlayerDao {
      */
     @Override
     public Player findPlayer(String playerId) throws PlayerNotFoundException {
-        // Player[] tempPlayer = new Player[500];
-        // String[] stringSplit = null;
-        // String line;
-        // int i = 0;
-        // try {
-        // br = new BufferedReader(new FileReader(PLAYER_FILE_NAME));
-        // while ((line = br.readLine()) != null) {
-        // stringSplit = line.split(",");
-        // if (playerId.equalsIgnoreCase(stringSplit[0])) {
-        // tempPlayer[i] = new Player();
-        // tempPlayer[i].setPlayerId(stringSplit[0]);
-        // tempPlayer[i].setPlayerName(stringSplit[1]);
-        // tempPlayer[i].setYearExpr(Integer.parseInt(stringSplit[2]));
-        // return tempPlayer[i];
-        // } else if ("".equalsIgnoreCase(stringSplit[0])) {
-        // throw new PlayerNotFoundException();
-        // } else if (!playerId.equalsIgnoreCase(stringSplit[0])) {
-        // throw new PlayerNotFoundException();
-        // } else if (" ".equalsIgnoreCase(stringSplit[0])) {
-        // throw new PlayerNotFoundException();
-        // }
-        // i++;
-        // }
-        // br.close();
-        // fr.close();
-        // } catch (Exception e) {
-        // System.out.println(e.getMessage());
-        // }
-        // return tempPlayer[i];
-
-        if(playerList.isEmpty()){
-            throw new PlayerNotFoundException();
-        }
         if (playerId == null) {
             throw new PlayerNotFoundException();
         } else {
             playerList = getAllPlayers();
-            if(playerList.isEmpty()){
+            if(playerList.size()==0){
                 throw new PlayerNotFoundException();
             }
             for (Player p : playerList) {

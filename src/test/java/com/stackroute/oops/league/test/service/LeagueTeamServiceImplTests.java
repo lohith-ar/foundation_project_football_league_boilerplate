@@ -263,7 +263,7 @@ public class LeagueTeamServiceImplTests {
                 playerList.add(player[i]);
             } else if (i >= 23 && i <= 33) {
                 player[i] = new Player("0" + i, "name" + i, "password", i - 20);
-                player[i].setTeamTitle("Happy Feet");
+                player[i].setTeamTitle("HappyFeet");
                 playerList.add(player[i]);
             } else {
                 player[i] = new Player("0" + i, "name" + i, "password", i - 30);
