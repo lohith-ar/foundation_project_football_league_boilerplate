@@ -1,7 +1,5 @@
 package com.stackroute.oops.league.dao;
 
-import com.stackroute.oops.league.dao.PlayerDao;
-
 import com.stackroute.oops.league.exception.PlayerNotFoundException;
 import com.stackroute.oops.league.model.Player;
 import com.stackroute.oops.league.model.PlayerTeam;

@@ -49,27 +49,6 @@ public class PlayerDaoImpl implements PlayerDao {
      */
     @Override
     public boolean addPlayer(Player player) throws PlayerAlreadyExistsException {
-        
-        // try {
-        //     fo = new FileOutputStream(PLAYER_FILE_NAME);
-
-        //     oo = new ObjectOutputStream(fo);
-        //     if (player.getPassword().length() > 6 && player.getYearExpr() > 0) {
-        //         oo.writeObject(player + "\n");
-        //         System.out.println(player);
-        //         oo.close();
-        //         fo.close();
-        //         return true;
-        //     } else
-        //         return false;
-        // } catch (FileNotFoundException e) {
-        //     System.out.println(e.getMessage());
-        //     return false;
-        // } catch (IOException e) {
-        //     System.out.println(e.getMessage());
-        //     return false;
-        // }
-
         try {
         fw = new FileWriter(PLAYER_FILE_NAME);
         bw = new BufferedWriter(fw);

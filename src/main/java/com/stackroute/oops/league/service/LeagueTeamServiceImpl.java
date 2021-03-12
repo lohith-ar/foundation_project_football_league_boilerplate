@@ -11,17 +11,13 @@ import com.stackroute.oops.league.exception.TeamAlreadyFormedException;
 import com.stackroute.oops.league.model.Player;
 import com.stackroute.oops.league.model.PlayerTeam;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Stream;
 
 /**
  * This class implements leagueTeamService This has four fields: playerDao,
@@ -29,14 +25,11 @@ import java.util.stream.Stream;
  */
 public class LeagueTeamServiceImpl implements LeagueTeamService {
     static ArrayList<Player> registeredPlayerList;
-    static TreeSet<PlayerTeam> playerTeamSet;
+    static Set<PlayerTeam> playerTeamSet;
     private static final String PLAYER_FILE_NAME = "src/main/resources/player.csv";
-    private static final String TEAM_FILE_NAME = "src/main/resources/finalteam.csv";
 
     FileWriter fw;
     BufferedWriter bw;
-    FileReader fr, fr1;
-    BufferedReader br, br1;
     PlayerDao playerDao;
     PlayerTeamDao playerTeamDao;
 
@@ -85,55 +78,21 @@ public class LeagueTeamServiceImpl implements LeagueTeamService {
     @Override
     public synchronized String registerPlayerToLeague(String playerId, String password, LeagueTeamTitles teamTitle)
             throws PlayerNotFoundException, TeamAlreadyFormedException, PlayerAlreadyAllottedException {
-        // registeredPlayerList = new ArrayList<Player>();
-        // List<Player> players = new ArrayList<Player>();
-        // PlayerDao playerDao = new PlayerDaoImpl();
-
-        // if (password != "password") {
-        // return "Invalid credentials";
-        // }
-        // if (playerId == null || playerId.equals("")) {
-        // throw new PlayerNotFoundException();
-        // }
-        // players = playerDao.getAllPlayers();
-        // if (players.size() == 0)
-        // return null;
-        // Player player = new Player();
-        // int noofLines = 0;
-        // int flag = 0;
-
-        // for (Player p : players) {
-        // noofLines++;
-        // if (!playerId.equals(p.getPlayerId())) {
-        // flag++;
-        // }
-        // }
-        // for (Player pl : players) {
-        // if(pl.getPlayerId().equals(playerId)){
-        // player.setPlayerId(playerId);
-        // player.setPassword(password);
-        // player.setTeamTitle(teamTitle.name());
-        // registeredPlayerList.add(player);
-        // }else{
-        // if (flag == noofLines) {
-        // throw new PlayerNotFoundException();
-        // }
-        // }
-        // for (Player p2 : registeredPlayerList) {
-        // System.out.println(p2);
-        // }
-        // return "Registered";
-        // }
-        // return null;
         List<Player> players = playerDao.getAllPlayers();
         if (players.isEmpty()) {
             return null;
         }
         Player p = playerDao.findPlayer(playerId);
+        if(p == null){
+            throw new PlayerNotFoundException();
+        }
         if (p.getPassword().equals(password)) {
-            for (PlayerTeam pt : playerTeamDao.getAllPlayerTeams()) {
-                if (pt.getPlayerId().equals(playerId) && pt.getTeamTitle() == null
-                        || (!pt.getPlayerId().equals(playerId))) {
+                    playerTeamSet = playerTeamDao.getAllPlayerTeams();
+                    PlayerTeam playerTeam = new PlayerTeam(p.getPlayerId(), p.getTeamTitle());
+                    if(playerTeamSet.contains(playerTeam)){
+                        throw new PlayerAlreadyAllottedException();
+                    }
+                
                     if (playerTeamDao.getPlayerSetByTeamTitle(teamTitle.name()).size() < 11) {
                         p.setTeamTitle(teamTitle.name());
                         registeredPlayerList.add(p);
@@ -142,14 +101,9 @@ public class LeagueTeamServiceImpl implements LeagueTeamService {
                     } else {
                         throw new TeamAlreadyFormedException();
                     }
-                } 
-                else {
-                    throw new PlayerAlreadyAllottedException();
-                }
-            }
         } else {
             return "Invalid credentials";
-        } return null;
+        } 
     }
 
     /**
@@ -211,55 +165,6 @@ public class LeagueTeamServiceImpl implements LeagueTeamService {
             return "Invalid credentials for admin";
         }
     }
-    // public String allotPlayersToTeam(String adminName, String password,
-    // LeagueTeamTitles teamTitle)
-    // throws TeamAlreadyFormedException, PlayerNotFoundException {
-    // if (adminName.equals(AdminCredentials.admin) &&
-    // password.equals(AdminCredentials.password)) {
-    // ArrayList<Player> templist = new ArrayList<Player>();
-    // PlayerTeamDao playerTeamDao = new PlayerTeamDaoImpl();
-    // Set<PlayerTeam> getplayerteam = playerTeamDao.getAllPlayerTeams();
-    // ArrayList<Player> tempfinallist = new ArrayList<Player>();
-
-    // for (Player p : registeredPlayerList) {
-    // if (getplayerteam.size() == 0) {
-    // p.setTeamTitle(teamTitle.name());
-    // templist.add(p);
-    // } else {
-    // for (PlayerTeam pt : getplayerteam) {
-    // String tempId = pt.getPlayerId().substring(16);
-    // if (!p.getPlayerId().equals(tempId)) {
-    // templist.add(p);
-    // }
-    // }
-    // }
-    // }
-    // for (Player p : templist) {
-    // System.out.println(p.toString());
-    // }
-    // method1(templist);
-    // return "Players allotted to teams";
-    // } else {
-    // return "Invalid credentials for admin";
-    // }
-    // }
-
-    // public void method1(ArrayList<Player> player) {
-    // try {
-    // fw = new FileWriter(TEAM_FILE_NAME);
-    // bw = new BufferedWriter(fw);
-    // for (Player p : player) {
-    // PlayerTeam playerTeam = new PlayerTeam(p.getPlayerId(), p.getTeamTitle());
-    // bw.append(playerTeam.toString() + "\n");
-    // }
-    // bw.close();
-    // fw.close();
-    // } catch (FileNotFoundException e) {
-    // e.printStackTrace();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
 
     /**
      * static nested class to initialize admin credentials admin name='admin' and
